@@ -1,2 +1,4 @@
 # ai_assistants
-Una repo col codice per svariati Assistenti AI che usano le API di OpenAI per fare robe fighe
+A repo containing (hopefully) various assistants which leverage the APIs from most popular LLMs and other libraries/languages to assist humans in the most tedious tasks!
+
+- **ai_secretary**: A virtual secretary which interfaces with your Gmail and Calendar to assist you in the everyday boring emails and calendar management
