@@ -1,4 +1,5 @@
 # Prerequisites
+- Python 3.*
 - A Google account with Calendar and Gmail
 - A Google Cloud Platform project with billing enabled
 - An OpenAI API key to use

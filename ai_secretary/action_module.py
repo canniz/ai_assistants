@@ -4,7 +4,7 @@ from google_services.email_service import EmailService
 import json
 
 SCOPES = [
-    'https://www.googleapis.com/auth/calendar.readonly',
+    'https://www.googleapis.com/auth/calendar.events',
     'https://www.googleapis.com/auth/gmail.readonly'
 ]
 
@@ -25,6 +25,8 @@ class ActionModule:
             data = self.email_service.get_unread_emails()
         elif name == "get_calendar_events":
             data = self.calendar_service.get_events(**args)
+        elif name == "create_event":
+            data = self.calendar_service.create_event(**args)
         else:
             data = ""
             raise Exception("Unexpected Action")
