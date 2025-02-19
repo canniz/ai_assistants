@@ -19,7 +19,10 @@ if __name__ == "__main__":
             break
         
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        formatted_message = f"timestamp: {timestamp} | message: {question}"
+        # Add day of week to the timestamp string
+        day_of_week = datetime.now().strftime("%A")
+        formatted_timestamp = f"Weekday: {day_of_week} | Timestamp: {timestamp}"
+        formatted_message = f"timestamp: {formatted_timestamp} | message: {question}"
         
         answer = assistant.generate_response(formatted_message)
         
