@@ -37,13 +37,9 @@ class ActionModule:
             data = self.memory_service.update_memory(**args)
         elif name == "append_string_to_memory":
             data = self.memory_service.append_string_to_memory(**args)
+        elif name == "get_memory":
+            data = self.memory_service.get_memory()
         else:
             data = ""
             raise Exception("Unexpected Action")
         return data
-    
-    def get_emails(self):
-        return
-    
-    def get_events(self, start_date_time, end_date_time):
-        return

@@ -65,8 +65,7 @@ tools = [{
             },
             "strict": True
         }
-    },
-    {
+    },{
         "type": "function",
         "function": {
             "name": "update_memory",
@@ -84,6 +83,20 @@ tools = [{
                     }
                 },
                 "required": ["new_memory"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "get_memory",
+            "description": """Se fosse necessario, puoi usare questa funzione per recuperare la memoria dell'utente.""",
+            "parameters": {
+                "type": "object",
+                "properties": {},
+                "required": [],
                 "additionalProperties": False
             },
             "strict": True
