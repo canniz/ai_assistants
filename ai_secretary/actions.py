@@ -68,18 +68,21 @@ tools = [{
     },{
         "type": "function",
         "function": {
-            "name": "update_memory",
-            "description": """Aggiorna la memoria dell'utente. Serve per rimpiazzare il vecchio contenuto della memoria col nuovo.
-                Mantieni sempre i concetti da aggiungere sintetici, non superare i 2000 caratteri. 
-                La memoria dovrà contenere roba che l'utente ti chiede di ricordare, o concetti che reputi importanti da tenere a mente.
-                Da usare solo se c'è da rimpiazzare o eliminare del contenuto della memoria""",
+            "name": "delete_and_update_temporary_memory",
+            "description": """Aggiorna la memoria temporanea utilizzata per attività, promemoria e note temporanee.
+                Questa funzione sostituisce l'intero contenuto della memoria temporanea.
+                Da utilizzare per gestire contenuti dinamici come:
+                - Liste di cose da fare
+                - Liste della spesa
+                - Promemoria temporanei
+                - Note che non necessitano di essere permanenti
+                Il contenuto deve essere strutturato con ritorni a capo (\\n) per maggiore leggibilità.""",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "new_memory": {
                         "type": "string",
-                        "description": """Da usare se c'è da rimpiazzare o eliminare del contenuto della memoria,
-                            contiene il testo dell'intera memoria che rimpiazzerà quello vecchio"""
+                        "description": "Il nuovo contenuto che sostituirà quello esistente nella memoria temporanea. Usa ritorni a capo (\\n) per strutturare il contenuto."
                     }
                 },
                 "required": ["new_memory"],
@@ -91,8 +94,9 @@ tools = [{
     {
         "type": "function",
         "function": {
-            "name": "get_memory",
-            "description": """Se fosse necessario, puoi usare questa funzione per recuperare la memoria dell'utente.""",
+            "name": "get_temporary_memory",
+            "description": """Recupera il contenuto attuale della memoria temporanea.
+                Utilizzalo per controllare le liste delle cose da fare, i promemoria e le note temporanee.""",
             "parameters": {
                 "type": "object",
                 "properties": {},
@@ -105,17 +109,22 @@ tools = [{
     {
         "type": "function",
         "function": {
-            "name": "append_string_to_memory",
-            "description": """Appende del contenuto alla memoria dell'utente. Serve per aggiungere contenuto senza cancellarne del vecchio.
-                Mantieni sempre i concetti da aggiungere sintetici, non superare i 2000 caratteri. 
-                La memoria dovrà contenere roba che l'utente ti chiede di ricordare, o concetti che reputi importanti da tenere a mente.
-                Da usare solo se c'è da aggiungere contenuto alla memoria""",
+            "name": "append_string_to_permanent_memory",
+            "description": """Aggiunge nuove informazioni alla memoria permanente dell'utente.
+                Da utilizzare per memorizzare informazioni persistenti sull'utente come:
+                - Preferenze e impostazioni
+                - Fatti importanti sull'utente
+                - Obiettivi a lungo termine
+                - Abitudini o pattern ricorrenti
+                - Informazioni personali da mantenere nel tempo
+                NON utilizzare per note temporanee o promemoria.
+                Il contenuto viene automaticamente aggiunto con un ritorno a capo (\\n).""",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "string_to_append": {
                         "type": "string",
-                        "description": """Contiene il testo da appendere alla memoria"""
+                        "description": "La nuova informazione da aggiungere alla memoria permanente. Verrà automaticamente aggiunto un ritorno a capo all'inizio."
                     }
                 },
                 "required": ["string_to_append"],

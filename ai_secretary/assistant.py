@@ -1,5 +1,6 @@
 from actions import tools
 from prompts import main_system_prompt
+import os
 
 # I primi due messaggi sono riservati ai system prompt
 # self.memory[0] = il system_prompt principale
@@ -9,16 +10,17 @@ from prompts import main_system_prompt
 class Assistant():
     def __init__(self, openai_client, action_module):
         self.openai_client = openai_client
-        self.history = [{"role": "system", "content": main_system_prompt},
-                        {"role": "system", "content": f"Memory: {action_module.memory_service.get_memory()}"}]
         self.action_module = action_module
+        self.model = os.getenv('OPENAI_MODEL', 'gpt-4o-mini')  # Default to gpt-4o-mini if not set
+        self.history = [{"role": "system", "content": main_system_prompt},
+                        {"role": "system", "content": f"Memoria permanente: {self.action_module.memory_service.get_permanent_memory()}"}]
         self.action_module.set_assistant(self)
 
     def generate_response(self, question):
         self.update_history({"role": "user", "content": question})
 
         completion = self.openai_client.chat.completions.create(
-            model="gpt-4o-mini",
+            model=self.model,
             messages=self.history,
             tools=tools,
             temperature=0.5
@@ -47,7 +49,7 @@ class Assistant():
                     })
         
         new_completion = self.openai_client.chat.completions.create(
-            model="gpt-4o-mini",
+            model=self.model,
             messages=self.history,
             tools=tools,
         )
@@ -60,5 +62,5 @@ class Assistant():
         if len(self.history) > 30:
             self.history = [self.history[0]] + self.history[1:30]
 
-    def update_memory(self, new_memory):
-        self.history[1] = {"role": "system", "content": f"Memory: {new_memory}"}
+    def update_permanent_memory(self, new_memory):
+        self.history[1] = {"role": "system", "content": f"Memoria permanente: {new_memory}"}
